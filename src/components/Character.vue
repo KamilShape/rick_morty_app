@@ -29,7 +29,7 @@ export default {
  .character{
    display: flex;
    width: 350px;
-   margin: 20px auto;
+   margin: 10px auto;
    box-sizing: border-box;
    padding: 20px;
    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;

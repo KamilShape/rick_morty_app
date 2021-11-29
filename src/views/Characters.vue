@@ -2,15 +2,19 @@
   <div class="characters">
     <section class="characters_search">
       <h2 class="characters_header">Search your favourites characters</h2>
-      <input class="characters_input" type="text">
+      <input class="characters_input" v-model='search' type="text">
     </section>
     <section class="characters_buttons">
-      <button @click="fetchCharacters" class="characters_button" >Show all</button>
-      <button @click="fetchCharacters" class="characters_button" >Search</button>
+      <button @click="fetchCharacters(page)" class="characters_button" >Show all</button>
+      <button  class="characters_button" >Search</button>
     </section>
   </div>
-  <keep-alive>
-    <div class="character_container">
+   <div class="characters_arrows" v-if='arrowsVisible'>
+      <button @click='changePageDown' class="characters_arrow characters_button"><i class="fas fa-angle-left"></i></button>
+      <p class="characters_pageCounter">{{page}} / {{pages}}</p>
+      <button @click='changePageUp' class="characters_arrow characters_button"><i class="fas fa-angle-right"></i></button>
+  </div>
+  <div class="characters_container">
     <Character v-for='character in characters' :key='character.id'
     :name='character.name'
     :species='character.species'
@@ -19,7 +23,7 @@
     :image='character.image'
     />
   </div>
-  </keep-alive>
+  
   
 </template>
 
@@ -30,21 +34,40 @@ export default {
   name: "Characters",
   data(){
     return{
-      characters: []
+      characters: [],
+      search: '',
+      page: 1,
+      pages: '',
+      arrowsVisible: false
     }
   },
   components: {
     Character
   },
   methods:{
-        async fetchCharacters(){
+        async fetchCharacters(actualPage){
           try {
-            let {data} = await this.axios('https://rickandmortyapi.com/api/character');
-            console.log(data.results)
+            let {data} = await this.axios(`https://rickandmortyapi.com/api/character/?page=${actualPage}&name=${this.search}`);
             this.characters = data.results
+            this.pages = data.info.pages
+            this.arrowsVisible = true
           }
           catch(e) {
             console.log(e, 'Error')
+          }
+        },
+        changePageDown(){
+          if(this.page > 1){
+            this.page--
+            this.characters = []
+            this.fetchCharacters(this.page)
+          }
+        },
+        changePageUp(){
+          if(this.page > this.pages){
+            this.page++
+            this.characters = []
+            this.fetchCharacters(this.page)
           }
         }
   }
@@ -90,8 +113,20 @@ export default {
        background-color: black;
       }
     }
+    &_arrows{
+      width: 150px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-evenly;
+    }
+    &_arrow{
+      width: 15%;
+      margin: 0;
+    }
+
     &_container{
       display: flex;
+      flex-direction: column;
     }
    
   }

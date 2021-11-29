@@ -14,15 +14,12 @@
   display: flex;
   justify-content: space-around;
   width: 350px;
- 
- 
   &_link{
     padding: 10px;
     text-decoration: none;
     background-color:rgb(110, 120, 255);
      border-radius: 10px;
     color: black;
+    }
   }
-  
-}
 </style>
