@@ -3,9 +3,11 @@
     <router-link class="nav_link" to="/">Characters</router-link> 
     <router-link class="nav_link" to="/favourites">Favourites</router-link>
   </div>
-  <keep-alive>
-    <router-view />
-  </keep-alive>
+  <router-view v-slot="{ Component }">
+    <keep-alive>
+      <component :is="Component" />
+    </keep-alive>
+  </router-view>
 </template>
 
 <style lang="scss">
@@ -18,7 +20,7 @@
     padding: 10px;
     text-decoration: none;
     background-color:rgb(110, 120, 255);
-     border-radius: 10px;
+    border-radius: 10px;
     color: black;
     }
   }

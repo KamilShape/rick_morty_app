@@ -20,6 +20,7 @@ export default {
     status: String,
     species: String,
     gender: String,
+    type: String,
     image: String
   },
 };

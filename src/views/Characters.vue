@@ -5,7 +5,7 @@
       <input class="characters_input" v-model='search' type="text">
     </section>
     <section class="characters_buttons">
-      <button @click="fetchCharacters(page)" class="characters_button">Search</button>
+      <button @click="searchCharacters" class="characters_button">Search</button>
     </section>
   </div>
    <div class="characters_arrows" v-if='arrowsVisible'>
@@ -49,11 +49,16 @@ export default {
             let {data} = await this.axios(`https://rickandmortyapi.com/api/character/?page=${actualPage}&name=${this.search}`);
             this.characters = data.results
             this.pages = data.info.pages
-            this.arrowsVisible = true
           }
           catch(e) {
             console.log(e, 'Error')
           }
+        },
+        searchCharacters(){
+          this.characters = []
+          this.page = 1
+          this.fetchCharacters(this.page)
+          this.arrowsVisible = true
         },
         changePageDown(){
           if(this.page > 1){
