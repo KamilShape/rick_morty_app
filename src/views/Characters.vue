@@ -5,8 +5,7 @@
       <input class="characters_input" v-model='search' type="text">
     </section>
     <section class="characters_buttons">
-      <button @click="fetchCharacters(page)" class="characters_button" >Show all</button>
-      <button  class="characters_button" >Search</button>
+      <button @click="fetchCharacters(page)" class="characters_button">Search</button>
     </section>
   </div>
    <div class="characters_arrows" v-if='arrowsVisible'>
@@ -64,7 +63,7 @@ export default {
           }
         },
         changePageUp(){
-          if(this.page > this.pages){
+          if(this.page < this.pages){
             this.page++
             this.characters = []
             this.fetchCharacters(this.page)
@@ -127,7 +126,25 @@ export default {
     &_container{
       display: flex;
       flex-direction: column;
+      width: 375px;
+      margin: 10px auto;
     }
-   
+    @media (min-width: 768px) {
+      &_container {
+        width: 750px;
+        flex-direction: row;
+        flex-wrap: wrap; 
+      }
+    }
+    @media (min-width: 1280px) { 
+       &_container {
+        width: 1100px;
+       }
+    }
+    @media (min-width: 1450px) { 
+       &_container {
+        width: 1450px;
+      }
+    }
   }
 </style>
