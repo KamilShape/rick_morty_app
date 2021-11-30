@@ -20,6 +20,7 @@
     :status='character.status'
     :gender='character.gender'
     :image='character.image'
+    :id='character.id'
     />
   </div>
   
@@ -40,6 +41,9 @@ export default {
       arrowsVisible: false
     }
   },
+  mounted: function(){
+    this.fetchCharacters()
+  },
   components: {
     Character
   },
@@ -49,6 +53,7 @@ export default {
             let {data} = await this.axios(`https://rickandmortyapi.com/api/character/?page=${actualPage}&name=${this.search}`);
             this.characters = data.results
             this.pages = data.info.pages
+            this.arrowsVisible = true
           }
           catch(e) {
             console.log(e, 'Error')
@@ -58,7 +63,7 @@ export default {
           this.characters = []
           this.page = 1
           this.fetchCharacters(this.page)
-          this.arrowsVisible = true
+          
         },
         changePageDown(){
           if(this.page > 1){

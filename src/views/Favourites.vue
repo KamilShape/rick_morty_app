@@ -1,5 +1,22 @@
 <template>
   <div class="favourites">
-    <h1>This is an about page</h1>
+    <h1>Your Favourites Characters</h1>
+    {{favCharacters}}
   </div>
 </template>
+
+<script>
+export default {
+  name: 'Favourites',
+  computed:{
+    favCharacters(){
+      return this.$store.state.favCharacters
+    }
+  },
+ 
+}
+</script>
+
+<style lang="">
+  
+</style>

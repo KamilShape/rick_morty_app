@@ -6,7 +6,7 @@
       <p class='character_description'>Status: {{status}}</p>
       <p class='character_description'>Species: {{species}}</p>
       <p class='character_description'>Gender: {{gender}}</p>
-      <button class='character_button'>Add to favourites</button>
+      <button class='character_button' @click='addCharacter'>Add to favourites</button>
     </div>
     
   </div>
@@ -20,9 +20,15 @@ export default {
     status: String,
     species: String,
     gender: String,
-    type: String,
-    image: String
+    image: String,
+    id: Number
   },
+   methods:{
+    addCharacter(){
+      
+      this.$store.commit('addCharacter', [this.id, this.name, this.status, this.species, this.gender, this.image])
+    }
+  }
 };
 </script>
 
