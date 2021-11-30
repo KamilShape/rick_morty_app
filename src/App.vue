@@ -26,9 +26,6 @@
       border-bottom: 1px solid black
     }
   }
-  router-link:active{
-      color: blue;
-      border-bottom: 1px solid blue
-    }
-  }
+}
+ 
 </style>

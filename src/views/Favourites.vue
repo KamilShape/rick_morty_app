@@ -2,9 +2,8 @@
   <div class="favourites">
     <div class="favourites_container">
       <h2 class='favourites_header'>
-        Let's go to character list and find your favourite characters! 
+        {{header}} 
       </h2>
-      <!-- <img class='favourites_image' src="../assets/rick_and_morty.png" alt=""> -->
      </div>
     <div class="characters_container">
       <Character v-for='character in favCharacters' 
@@ -31,9 +30,11 @@ export default {
   computed:{
     favCharacters(){
       return this.$store.state.favCharacters
+    },
+    header(){
+      return this.$store.state.header
     }
   },
- 
 }
 </script>
 
@@ -47,8 +48,7 @@ export default {
     &_header{
       width: 350px;
       text-align: center;
-       padding: 10px;
-      box-sizing: border-box;
+      
     }
     &_image{
       width: 350px;

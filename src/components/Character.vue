@@ -36,14 +36,18 @@ export default {
   },
   methods:{
     addCharacter(){
-      this.$store.commit('addCharacter', [this.id, this.name, this.status, this.species, this.gender, this.image])
-    },
+        this.$store.commit('addCharacter', [this.id, this.name, this.status, this.species, this.gender, this.image])
+        this.$store.commit('setHeader', "Your favourite characters list: ")
+      },
     removeCharacter(){
       let index = this.favCharacters.findIndex(
         (character) => character.id == this.id
       )
       this.$store.commit('removeCharacter', index)
-    }
+      if(this.favCharacters.length === 0){
+        this.$store.commit('setHeader', "Let's go to characters list and find your favourite characters!")
+      }
+    },
   }
 };
 </script>

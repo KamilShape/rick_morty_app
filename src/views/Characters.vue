@@ -1,11 +1,12 @@
 <template>
   <div class="characters">
     <section class="characters_search">
-      <h1 class="characters_header">Search your favourites characters</h1>
+      <h1 class="characters_header">Search your favourite characters</h1>
       <input class="characters_input" v-model='search' type="text">
     </section>
     <section class="characters_buttons">
       <button @click="searchCharacters" class="characters_button">Search</button>
+      <button @click="showAll" class="characters_button">Show All</button>
     </section>
   </div>
    <div class="characters_arrows" v-if='arrowsVisible'>
@@ -60,6 +61,11 @@ export default {
           catch(e) {
             console.log(e, 'Error')
           }
+        },
+        showAll(){
+          this.page = 1
+          this.search = ''
+          this.fetchCharacters(this.page)
         },
         searchCharacters(){
           if(this.search !== ''){
