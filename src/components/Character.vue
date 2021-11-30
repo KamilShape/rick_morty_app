@@ -9,7 +9,6 @@
       <button class='character_button' v-if='addVisible' @click='addCharacter'>Add to favourites</button>
       <button class='character_button' v-else @click='removeCharacter'>Remove</button>
     </div>
-    
   </div>
 </template>
 
