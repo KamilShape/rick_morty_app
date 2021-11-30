@@ -1,7 +1,7 @@
 <template>
   <div class="characters">
     <section class="characters_search">
-      <h2 class="characters_header">Search your favourites characters</h2>
+      <h1 class="characters_header">Search your favourites characters</h1>
       <input class="characters_input" v-model='search' type="text">
     </section>
     <section class="characters_buttons">
@@ -14,13 +14,15 @@
       <button @click='changePageUp' class="characters_arrow characters_button"><i class="fas fa-angle-right"></i></button>
   </div>
   <div class="characters_container">
-    <Character v-for='character in characters' :key='character.id'
+    <Character v-for='character in characters' 
+    :key='character.id'
     :name='character.name'
     :species='character.species'
     :status='character.status'
     :gender='character.gender'
     :image='character.image'
     :id='character.id'
+    :visible="true"
     />
   </div>
   
@@ -41,11 +43,11 @@ export default {
       arrowsVisible: false
     }
   },
-  mounted: function(){
-    this.fetchCharacters()
-  },
   components: {
     Character
+  },
+  mounted: function(){
+    this.fetchCharacters()
   },
   methods:{
         async fetchCharacters(actualPage){
@@ -60,10 +62,11 @@ export default {
           }
         },
         searchCharacters(){
-          this.characters = []
-          this.page = 1
-          this.fetchCharacters(this.page)
-          
+          if(this.search !== ''){
+            this.characters = []
+            this.page = 1
+            this.fetchCharacters(this.page)
+          }  
         },
         changePageDown(){
           if(this.page > 1){

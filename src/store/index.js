@@ -14,6 +14,9 @@ export default createStore({
                 gender: value5,
                 image: value6,
             })
+        },
+        removeCharacter(state, index) {
+            state.favCharacters.splice(index, 1)
         }
     },
     actions: {},

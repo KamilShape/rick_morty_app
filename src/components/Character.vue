@@ -2,11 +2,12 @@
   <div class="character">
     <img class='character_image' :src="image">
     <div class='character_container'>
-      <h4 class='character_name'>Name: {{name}}</h4>
+      <h4 class='character_name'>{{name}}</h4>
       <p class='character_description'>Status: {{status}}</p>
       <p class='character_description'>Species: {{species}}</p>
       <p class='character_description'>Gender: {{gender}}</p>
-      <button class='character_button' @click='addCharacter'>Add to favourites</button>
+      <button class='character_button' v-if='addVisible' @click='addCharacter'>Add to favourites</button>
+      <button class='character_button' v-else @click='removeCharacter'>Remove</button>
     </div>
     
   </div>
@@ -14,19 +15,35 @@
 
 <script>
 export default {
+  data(){
+    return{
+      addVisible: this.visible
+    }
+  },
   name: "Character",
   props: {
+    id: Number,
     name: String,
     status: String,
     species: String,
     gender: String,
     image: String,
-    id: Number
+    visible: Boolean
   },
-   methods:{
+  computed:{
+    favCharacters(){
+      return this.$store.state.favCharacters
+    }
+  },
+  methods:{
     addCharacter(){
-      
       this.$store.commit('addCharacter', [this.id, this.name, this.status, this.species, this.gender, this.image])
+    },
+    removeCharacter(){
+      let index = this.favCharacters.findIndex(
+        (character) => character.id == this.id
+      )
+      this.$store.commit('removeCharacter', index)
     }
   }
 };
@@ -43,9 +60,11 @@ export default {
    &_image{
      width: 150px;
     height: 150px;
+    border-radius: 150px;
+    box-shadow: rgba(45, 100, 245, 0.7) 5px 3px 8px;
    }
    &_name{
-     font-size: 0.8rem;
+     font-size: 1.1rem;
       width: 150px;
    }
    &_description{
