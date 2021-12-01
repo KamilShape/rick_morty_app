@@ -13,6 +13,7 @@
 </template>
 
 <script>
+
 export default {
   data(){
     return{
@@ -35,10 +36,22 @@ export default {
     }
   },
   methods:{
-    addCharacter(){
+    adding(){
         this.$store.commit('addCharacter', [this.id, this.name, this.status, this.species, this.gender, this.image])
         this.$store.commit('setHeader', "Your favourite characters list: ")
-      },
+    },
+    addCharacter(){
+      if(this.favCharacters.length === 0){
+        this.adding()
+        return
+      }
+      let index = this.favCharacters.findIndex(
+        (character) => character.id == this.id
+      )
+      if(this.favCharacters.length > 0 && index === -1){
+        this.adding()
+      }
+    },
     removeCharacter(){
       let index = this.favCharacters.findIndex(
         (character) => character.id == this.id
